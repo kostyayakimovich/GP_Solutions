@@ -24,6 +24,10 @@ const News: React.FC<Props> = ({
     setIsModalOpen(true);
     setTitleNews(title);
   };
+  const handleUpdate = (title: string) => {
+    setModalType(ModalType.Edit);
+    setIsModalOpen(true);
+  };
   return (
     <>
       <section className='news'>
@@ -34,7 +38,9 @@ const News: React.FC<Props> = ({
               <div>{body}</div>
             </div>
             <div className='controlNews'>
-              <button className='btn'>Update</button>
+              <button className='btn' onClick={() => handleUpdate(title)}>
+                Update
+              </button>
               <button className='btn' onClick={() => handleDelete(title)}>
                 Delete
               </button>

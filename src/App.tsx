@@ -18,9 +18,12 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const addNews = (title: string, body: string) =>
+    setNews([{ title: title, body: body }, ...news]);
+
   return (
     <div className='App'>
-      <Header />
+      <Header setIsModalOpen={setIsModalOpen} setModalType={setModalType} />
       <News
         setIsModalOpen={setIsModalOpen}
         news={news}
@@ -32,6 +35,7 @@ function App() {
           type={modalType}
           setIsModalOpen={setIsModalOpen}
           deleteNews={deleteNews}
+          addNews={addNews}
         />
       )}
     </div>

@@ -20,8 +20,40 @@
 }
 .modal-action {
   color: rgb(247, 59, 59);
+  width: 100%;
+  margin: 0 20px;
 }
-.modalcontrol {
+.modal-control {
   display: flex;
   justify-content: space-around;
+}
+.modal-input {
+  color: #3c3c3c;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 0;
+  line-height: 22px;
+  background-color: #fff;
+  padding: 13px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+.modal-input:focus {
+  background: #fff;
+  box-shadow: 0;
+  border: 3px solid #3498db;
+  color: #3498db;
+  outline: none;
+  padding: 13px;
+}
+.modal-text {
+  padding-bottom: 50px;
+}
+.modal-text:focus {
+  padding-bottom: 50px;
 }
