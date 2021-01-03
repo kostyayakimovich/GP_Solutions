@@ -1,8 +1,7 @@
 export const dataNews = [
-	{
-		title:
-			'Merry Christmas & a Happy New Year from the Team at GP Solutions!',
-		body: `Cheers to the New Year! Wishing you a Happy Holiday season from the team at GP Solutions!
+  {
+    title: 'Merry Christmas & a Happy New Year from the Team at GP Solutions!',
+    body: `Cheers to the New Year! Wishing you a Happy Holiday season from the team at GP Solutions!
    2020 – a truly unique year, – is coming to an end…   
    It’s been a true test for all the travel professionals.
    And as we reflect back on it and revisit all that took place this year, 
@@ -11,20 +10,20 @@ export const dataNews = [
    throughout the year is truly inspiring. And it’s amazing. Let’s continue
    to support each other, as better times for our industry will come soon.   
    We wish you peace, joy and prosperity throughout 2021!`,
-	},
-	{
-		title: 'The Beginning of an Exciting Journey: Our First Welcome Box!',
-		body: `Our first Welcome Box has reached our dearest customer Discovery Belize!
+  },
+  {
+    title: 'The Beginning of an Exciting Journey: Our First Welcome Box!',
+    body: `Our first Welcome Box has reached our dearest customer Discovery Belize!
     With this welcome pack, we would like to congratulate us both for a successful 
     first step in our joint project. It’s our way of saying ‘thank you’ 
     for choosing GP Solutions as a reliable travel technology partner.
     We value each and every one of our customers. The trust in us is an
     endless source of inspiration for our team to work harder, be creative 
     and stay ever attentive to our clients’ wishes and needs.`,
-	},
-	{
-		title: 'Ideas arrive here at WTM London Virtual!',
-		body: `As we continue to adapt to COVID-19 and social distancing, virtual 
+  },
+  {
+    title: 'Ideas arrive here at WTM London Virtual!',
+    body: `As we continue to adapt to COVID-19 and social distancing, virtual 
     events are rising as a replacement for our missing one-to-one live interactions.
     After 40 years of hosting especially in-person travel shows, WTM London 2020 is 
     facilitating a completely virtual event that is taking place from 9 to 11 November. 
@@ -48,10 +47,10 @@ export const dataNews = [
     you, the global travel trade an insight of how the industry will look in the future, 
     share innovations, and create endless business opportunities”.    
     More information about the event you can find here.`,
-	},
-	{
-		title: 'Introducing GP Travel Enterprise 8.4 Release',
-		body: `Dear Colleagues, Clients and Partners!
+  },
+  {
+    title: 'Introducing GP Travel Enterprise 8.4 Release',
+    body: `Dear Colleagues, Clients and Partners!
     We are happy to announce GP Travel Enterprise Release 8.4 and hope you’re prepared to take
     full advantage of all the new features.     
     What’s New:     
@@ -82,10 +81,10 @@ export const dataNews = [
      you are using, please adjust integration from your side.     
      You can also contact us via support@software.travel with “Release 8.4” in a subject
      line if you have any questions regarding the upcoming software release.`,
-	},
-	{
-		title: 'ITB Asia is Bringing its Stage Virtual!',
-		body: `This year virtual events present became a new opportunity for overstepping
+  },
+  {
+    title: 'ITB Asia is Bringing its Stage Virtual!',
+    body: `This year virtual events present became a new opportunity for overstepping
      the hurdles of social distancing and engaging audiences around the world.
      This October GP Solutions is exhibiting at ITB Asia Virtual.
      It’s a great opportunity to conduct business with global partners and share ideas and
@@ -99,5 +98,5 @@ export const dataNews = [
      Airline, Tour Operator, or a travel supplier with an interest in reaching out to buyers
      (particularly from Asia), we welcome you to exhibit in the virtual exhibition.”        
      More details about the event you can find here.`,
-	},
+  },
 ];

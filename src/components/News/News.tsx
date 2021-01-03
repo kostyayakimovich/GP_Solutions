@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { dataNews } from './dataNews';
 import './style.css';
 import { ModalType } from '../../types';
 
@@ -12,11 +11,18 @@ type Props = {
   setIsModalOpen: (isOpen: boolean) => void;
   news: CurrentNews[];
   setModalType: (type: ModalType) => void;
+  setTitleNews: (title: string) => void;
 };
-const News: React.FC<Props> = ({ setIsModalOpen, setModalType, news }) => {
-  const handleDelete = () => {
+const News: React.FC<Props> = ({
+  setIsModalOpen,
+  setModalType,
+  setTitleNews,
+  news,
+}) => {
+  const handleDelete = (title: string) => {
     setModalType(ModalType.Delete);
     setIsModalOpen(true);
+    setTitleNews(title);
   };
   return (
     <>
@@ -29,7 +35,7 @@ const News: React.FC<Props> = ({ setIsModalOpen, setModalType, news }) => {
             </div>
             <div className='controlNews'>
               <button className='btn'>Update</button>
-              <button className='btn' onClick={handleDelete}>
+              <button className='btn' onClick={() => handleDelete(title)}>
                 Delete
               </button>
             </div>

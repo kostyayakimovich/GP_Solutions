@@ -4,9 +4,11 @@ import './style.css';
 
 type Props = {
   type: ModalType;
+  setIsModalOpen: (isOpen: boolean) => void;
+  deleteNews: () => void;
 };
 
-const Modal: React.FC<Props> = ({ type }) => {
+const Modal: React.FC<Props> = ({ type, setIsModalOpen, deleteNews }) => {
   return (
     <article className='modal'>
       <div className='modal-card'>
@@ -19,8 +21,15 @@ const Modal: React.FC<Props> = ({ type }) => {
           <div className='modal-action'>
             <h3>Do you want remove this news?</h3>
             <div className='modalcontrol'>
-              <button className='btn modal-btn'>Yes</button>
-              <button className='btn modal-btn'>No</button>
+              <button className='btn modal-btn' onClick={deleteNews}>
+                Yes
+              </button>
+              <button
+                className='btn modal-btn'
+                onClick={() => setIsModalOpen(false)}
+              >
+                No
+              </button>
             </div>
           </div>
         )}
