@@ -1,96 +1,61 @@
-import React, { useState } from 'react';
-import { ModalType } from '../../types';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { ModalType, CurrentNews, Payload } from '../../types';
+import AddForm from '../AddForm';
 import './style.css';
 
 type Props = {
   type: ModalType;
-  setIsModalOpen: (isOpen: boolean) => void;
-  deleteNews: () => void;
-  addNews: (title: string, body: string) => void;
+  closeModal: () => void;
+  currentNews: CurrentNews | null;
 };
 
-const Modal: React.FC<Props> = ({
-  type,
-  setIsModalOpen,
-  deleteNews,
-  addNews,
-}) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const handleAdd = () => {
-    addNews(title, description);
-    setIsModalOpen(false);
+const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
+  const dispatch = useDispatch();
+  const handleAdd = (payload: Payload) => {
+    dispatch({ type: 'ADD', payload: { ...payload, id: uuidv4() } });
+    closeModal();
   };
 
-  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+  const handleDelete = () => {
+    dispatch({ type: 'DELETE', payload: currentNews });
+    closeModal();
   };
-  const handleChangeDescription = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(event.target.value);
+
+  const handleEdit = (payload: Payload) => {
+    dispatch({ type: 'EDIT', payload: { ...payload, id: currentNews?.id } });
+    closeModal();
   };
 
   return (
     <article className='modal'>
       <div className='modal-card'>
         {type === ModalType.Add && (
-          <div className='modal-action'>
-            <p>
-              <input
-                name='title'
-                type='text'
-                className='modal-input'
-                placeholder='Title news'
-                id='title'
-                onChange={handleChangeTitle}
-              />
-            </p>
-            <p>
-              <textarea
-                name='text'
-                className='modal-input modal-text'
-                id='description'
-                placeholder='Description news'
-                onChange={handleChangeDescription}
-              ></textarea>
-            </p>
-            <div className='modal-control'>
-              <button className='btn' onClick={handleAdd}>
-                Add news
-              </button>
-              <button className='btn' onClick={() => setIsModalOpen(false)}>
-                Exit
-              </button>
-            </div>
-          </div>
+          <AddForm
+            onSubmit={handleAdd}
+            onClose={closeModal}
+            titleValue=''
+            bodyValue=''
+          />
+        )}
+        {type === ModalType.Edit && (
+          <AddForm
+            onSubmit={handleEdit}
+            onClose={closeModal}
+            titleValue={currentNews?.title || ''}
+            bodyValue={currentNews?.body || ''}
+          />
         )}
         {type === ModalType.Delete && (
           <div className='modal-action'>
             <h3>Do you want remove this news?</h3>
             <div className='modal-control'>
-              <button className='btn modal-btn' onClick={deleteNews}>
+              <button className='btn modal-btn' onClick={handleDelete}>
                 Yes
               </button>
-              <button
-                className='btn modal-btn'
-                onClick={() => setIsModalOpen(false)}
-              >
+              <button className='btn modal-btn' onClick={closeModal}>
                 No
-              </button>
-            </div>
-          </div>
-        )}
-        {type === ModalType.Edit && (
-          <div className='modal-action'>
-            <h3>Update</h3>
-            <div className='modal-control'>
-              <button className='btn modal-btn'>Update</button>
-              <button
-                className='btn modal-btn'
-                onClick={() => setIsModalOpen(false)}
-              >
-                Exit
               </button>
             </div>
           </div>
@@ -99,4 +64,5 @@ const Modal: React.FC<Props> = ({
     </article>
   );
 };
+
 export default Modal;
