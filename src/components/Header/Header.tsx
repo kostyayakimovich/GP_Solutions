@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
 import { ModalType } from '../../types';
+import Button from '../Button';
 import './style.css';
 
 type State = {
@@ -79,9 +80,7 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
             />
           </div>
         </div>
-        <button className='btn' onClick={() => handleAdd()}>
-          Add news
-        </button>
+        <Button buttonName='Add news' onClick={() => handleAdd()} />
       </header>
       {searchString && (
         <div className='message'>

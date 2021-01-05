@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Payload } from '../../types';
+import Button from '../Button';
 import './style.css';
 
 type Props = {
@@ -56,15 +57,11 @@ const AddForm: React.FC<Props> = ({
         ></textarea>
       </p>
       <div className='modal-control'>
-        <button
-          className='btn modal-btn'
+        <Button
+          buttonName={buttonName}
           onClick={() => onSubmit({ title, body })}
-        >
-          {buttonName}
-        </button>
-        <button className='btn modal-btn' onClick={onClose}>
-          Exit
-        </button>
+        />
+        <Button buttonName='Exit' onClick={onClose} />
       </div>
     </div>
   );

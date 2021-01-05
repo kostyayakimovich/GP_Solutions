@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ModalType, CurrentNews, Payload } from '../../types';
 import AddForm from '../AddForm';
 import './style.css';
+import Button from '../Button';
 
 type Props = {
   type: ModalType;
@@ -13,10 +14,13 @@ type Props = {
 
 const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
   const dispatch = useDispatch();
-  const handleAdd = (payload: Payload) => {
-    dispatch({ type: 'ADD', payload: { ...payload, id: uuidv4() } });
-    closeModal();
-  };
+  const handleAdd = useCallback(
+    (payload: Payload) => {
+      dispatch({ type: 'ADD', payload: { ...payload, id: uuidv4() } });
+      closeModal();
+    },
+    [closeModal, dispatch]
+  );
 
   const handleDelete = useCallback(() => {
     dispatch({ type: 'DELETE', payload: currentNews });
@@ -56,12 +60,8 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
           <div className='modal-action'>
             <h3>Do you want remove this news?</h3>
             <div className='modal-control'>
-              <button className='btn modal-btn' onClick={handleDelete}>
-                Yes
-              </button>
-              <button className='btn modal-btn' onClick={closeModal}>
-                No
-              </button>
+              <Button buttonName='Yes' onClick={handleDelete} />
+              <Button buttonName='No' onClick={closeModal} />
             </div>
           </div>
         )}
