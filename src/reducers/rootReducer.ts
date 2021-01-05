@@ -3,6 +3,8 @@ import { Action } from '../types';
 
 const defaultState = {
   news,
+  searchString: null,
+  findNews: [],
 };
 
 function reducer(state = defaultState, action: Action) {
@@ -12,7 +14,7 @@ function reducer(state = defaultState, action: Action) {
     case 'DELETE': {
       return {
         ...state,
-        news: state.news.filter(({ title }) => title !== action.payload.title),
+        news: state.news.filter(({ id }) => id !== action.payload.id),
       };
     }
     case 'EDIT': {
@@ -24,6 +26,12 @@ function reducer(state = defaultState, action: Action) {
           }
           return item;
         }),
+      };
+    }
+    case 'SEARCH': {
+      return {
+        ...state,
+        searchString: action.payload.trim(),
       };
     }
     default:

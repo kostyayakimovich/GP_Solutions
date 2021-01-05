@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { ModalType, CurrentNews, Payload } from '../../types';
@@ -18,15 +18,18 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
     closeModal();
   };
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     dispatch({ type: 'DELETE', payload: currentNews });
     closeModal();
-  };
+  }, [currentNews, closeModal, dispatch]);
 
-  const handleEdit = (payload: Payload) => {
-    dispatch({ type: 'EDIT', payload: { ...payload, id: currentNews?.id } });
-    closeModal();
-  };
+  const handleEdit = useCallback(
+    (payload: Payload) => {
+      dispatch({ type: 'EDIT', payload: { ...payload, id: currentNews?.id } });
+      closeModal();
+    },
+    [closeModal, dispatch, currentNews]
+  );
 
   return (
     <article className='modal'>
@@ -35,6 +38,7 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
           <AddForm
             onSubmit={handleAdd}
             onClose={closeModal}
+            buttonName='Add news'
             titleValue=''
             bodyValue=''
           />
@@ -43,6 +47,7 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
           <AddForm
             onSubmit={handleEdit}
             onClose={closeModal}
+            buttonName='Edit news'
             titleValue={currentNews?.title || ''}
             bodyValue={currentNews?.body || ''}
           />

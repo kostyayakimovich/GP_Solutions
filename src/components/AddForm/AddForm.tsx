@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useCallback, useState } from 'react';
 import { Payload } from '../../types';
-
 import './style.css';
 
 type Props = {
@@ -9,6 +7,7 @@ type Props = {
   onClose: () => void;
   titleValue: string;
   bodyValue: string;
+  buttonName: string;
 };
 
 const AddForm: React.FC<Props> = ({
@@ -16,18 +15,23 @@ const AddForm: React.FC<Props> = ({
   onClose,
   titleValue,
   bodyValue,
+  buttonName,
 }) => {
   const [title, setTitle] = useState(titleValue);
   const [body, setDescription] = useState(bodyValue);
 
-  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-  const handleChangeDescription = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(event.target.value);
-  };
+  const handleChangeTitle = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setTitle(event.target.value);
+    },
+    []
+  );
+  const handleChangeDescription = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setDescription(event.target.value);
+    },
+    []
+  );
   return (
     <div className='modal-action'>
       <p>
@@ -52,10 +56,13 @@ const AddForm: React.FC<Props> = ({
         ></textarea>
       </p>
       <div className='modal-control'>
-        <button className='btn' onClick={() => onSubmit({ title, body })}>
-          Change
+        <button
+          className='btn modal-btn'
+          onClick={() => onSubmit({ title, body })}
+        >
+          {buttonName}
         </button>
-        <button className='btn' onClick={onClose}>
+        <button className='btn modal-btn' onClick={onClose}>
           Exit
         </button>
       </div>
