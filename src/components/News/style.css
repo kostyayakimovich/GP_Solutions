@@ -1,0 +1,40 @@
+.news {
+  background-color: rgb(241, 239, 239);
+  padding: 20px;
+  margin: 20px;
+}
+
+.cardNews {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid#222;
+  padding-bottom: 5px;
+}
+.controlNews {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-top: 10px;
+}
+.textNews {
+  overflow: hidden;
+  word-wrap: break-word;
+  flex-basis: 85%;
+  text-align: justify;
+  margin: 0 10px 10px 0;
+}
+.title-news {
+  background-color: rgb(204, 226, 164);
+  font-size: 1.5em;
+  padding: 5px;
+}
+
+@media screen and (max-width: 500px) {
+  .cardNews {
+    flex-direction: column;
+  }
+  .controlNews {
+    flex-direction: row;
+  }
+}

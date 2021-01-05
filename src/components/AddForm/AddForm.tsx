@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Payload } from '../../types';
 import Button from '../Button';
-import './style.css';
 
 type Props = {
   onSubmit: (payload: Payload) => void;
@@ -33,6 +32,13 @@ const AddForm: React.FC<Props> = ({
     },
     []
   );
+
+  const onClick = useCallback(() => onSubmit({ title, body }), [
+    body,
+    onSubmit,
+    title,
+  ]);
+
   return (
     <div className='modal-action'>
       <p>
@@ -57,10 +63,7 @@ const AddForm: React.FC<Props> = ({
         ></textarea>
       </p>
       <div className='modal-control'>
-        <Button
-          buttonName={buttonName}
-          onClick={() => onSubmit({ title, body })}
-        />
+        <Button buttonName={buttonName} onClick={onClick} />
         <Button buttonName='Exit' onClick={onClose} />
       </div>
     </div>

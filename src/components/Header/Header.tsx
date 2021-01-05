@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
 import { ModalType } from '../../types';
+import { SEARCH } from '../../reducers/types';
 import Button from '../Button';
 import './style.css';
 
@@ -15,6 +16,7 @@ type Props = {
   setIsModalOpen: (isOpen: boolean) => void;
   setModalType: (type: ModalType) => void;
 };
+
 const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   const [valueInput, setValueInput] = useState('');
   const dispatch = useDispatch();
@@ -33,14 +35,14 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter') {
-        dispatch({ type: 'SEARCH', payload: valueInput });
+        dispatch({ type: SEARCH, payload: valueInput });
         setValueInput('');
       }
     },
     [valueInput, dispatch]
   );
   const handleFindClick = useCallback(() => {
-    dispatch({ type: 'SEARCH', payload: valueInput });
+    dispatch({ type: SEARCH, payload: valueInput });
     setValueInput('');
   }, [dispatch, valueInput]);
 
@@ -52,7 +54,7 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   );
 
   const handleClearSearchClick = useCallback(() => {
-    dispatch({ type: 'SEARCH', payload: '' });
+    dispatch({ type: SEARCH, payload: '' });
   }, [dispatch]);
 
   return (
@@ -80,11 +82,11 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
             />
           </div>
         </div>
-        <Button buttonName='Add news' onClick={() => handleAdd()} />
+        <Button buttonName='Add news' onClick={handleAdd} />
       </header>
       {searchString && (
         <div className='message'>
-          <p>News for search word: {searchString}</p>
+          <p>Results for: {searchString}</p>
           <img
             className='close-icon'
             src={Close}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFilter } from './hooks';
 import { CurrentNews, ModalType } from '../../types';
+import Button from '../Button';
 import './style.css';
 
 type State = {
@@ -30,32 +31,35 @@ const News: React.FC<Props> = ({ openModal }) => {
   return (
     <>
       <section className='news'>
-        {newsList.map((value) => {
-          const originalNews =
-            news.find((item) => value.id === item.id) || value;
-          return (
-            <article className='cardNews' key={value.id}>
-              <div className='textNews'>
-                <p dangerouslySetInnerHTML={{ __html: value.title }}></p>
-                <div dangerouslySetInnerHTML={{ __html: value.body }}></div>
-              </div>
-              <div className='controlNews'>
-                <button
-                  className='btn'
-                  onClick={() => openModal(originalNews, ModalType.Edit)}
-                >
-                  Edit
-                </button>
-                <button
-                  className='btn'
-                  onClick={() => openModal(value, ModalType.Delete)}
-                >
-                  Delete
-                </button>
-              </div>
-            </article>
-          );
-        })}
+        {newsList.length ? (
+          newsList.map((value) => {
+            const originalNews =
+              news.find((item) => value.id === item.id) || value;
+            return (
+              <article className='cardNews' key={value.id}>
+                <div className='textNews'>
+                  <p
+                    className='title-news'
+                    dangerouslySetInnerHTML={{ __html: value.title }}
+                  ></p>
+                  <div dangerouslySetInnerHTML={{ __html: value.body }}></div>
+                </div>
+                <div className='controlNews'>
+                  <Button
+                    buttonName='Edit'
+                    onClick={() => openModal(originalNews, ModalType.Edit)}
+                  />
+                  <Button
+                    buttonName='Delete'
+                    onClick={() => openModal(value, ModalType.Delete)}
+                  />
+                </div>
+              </article>
+            );
+          })
+        ) : (
+          <h1>No results!</h1>
+        )}
       </section>
     </>
   );

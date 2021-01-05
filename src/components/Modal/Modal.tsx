@@ -3,8 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { ModalType, CurrentNews, Payload } from '../../types';
 import AddForm from '../AddForm';
-import './style.css';
 import Button from '../Button';
+import { ADD, DELETE, EDIT } from '../../reducers/types';
+import './style.css';
 
 type Props = {
   type: ModalType;
@@ -16,20 +17,20 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
   const dispatch = useDispatch();
   const handleAdd = useCallback(
     (payload: Payload) => {
-      dispatch({ type: 'ADD', payload: { ...payload, id: uuidv4() } });
+      dispatch({ type: ADD, payload: { ...payload, id: uuidv4() } });
       closeModal();
     },
     [closeModal, dispatch]
   );
 
   const handleDelete = useCallback(() => {
-    dispatch({ type: 'DELETE', payload: currentNews });
+    dispatch({ type: DELETE, payload: currentNews });
     closeModal();
   }, [currentNews, closeModal, dispatch]);
 
   const handleEdit = useCallback(
     (payload: Payload) => {
-      dispatch({ type: 'EDIT', payload: { ...payload, id: currentNews?.id } });
+      dispatch({ type: EDIT, payload: { ...payload, id: currentNews?.id } });
       closeModal();
     },
     [closeModal, dispatch, currentNews]

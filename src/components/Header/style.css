@@ -3,7 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 5px solid #a08d8d;
+  border-bottom: 5px solid rgb(204, 226, 164);
+  background-color: #222;
+  color: #ddd;
 }
 .input-wrapper {
   width: 500px;
