@@ -8,6 +8,7 @@ type Props = {
   titleValue: string;
   bodyValue: string;
   buttonName: string;
+  authorValue: string;
 };
 
 const AddForm: React.FC<Props> = ({
@@ -16,9 +17,11 @@ const AddForm: React.FC<Props> = ({
   titleValue,
   bodyValue,
   buttonName,
+  authorValue,
 }) => {
   const [title, setTitle] = useState(titleValue);
   const [body, setDescription] = useState(bodyValue);
+  const [author, setAuthor] = useState(authorValue);
 
   const handleChangeTitle = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +29,14 @@ const AddForm: React.FC<Props> = ({
     },
     []
   );
+
+  const handleChangeAuthor = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAuthor(event.target.value);
+    },
+    []
+  );
+
   const handleChangeDescription = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setDescription(event.target.value);
@@ -33,14 +44,23 @@ const AddForm: React.FC<Props> = ({
     []
   );
 
-  const onClick = useCallback(() => onSubmit({ title, body }), [
-    body,
-    onSubmit,
-    title,
-  ]);
+  const onClick = useCallback(() => {
+    onSubmit({ title, body, author });
+  }, [body, onSubmit, title, author]);
 
   return (
     <div className='modal-action'>
+      <p>
+        <input
+          name='author'
+          type='text'
+          className='modal-input'
+          placeholder='Author news'
+          id='author'
+          value={author}
+          onChange={handleChangeAuthor}
+        />
+      </p>
       <p>
         <input
           name='title'

@@ -43,6 +43,10 @@ const News: React.FC<Props> = ({ openModal }) => {
                     dangerouslySetInnerHTML={{ __html: value.title }}
                   ></p>
                   <div dangerouslySetInnerHTML={{ __html: value.body }}></div>
+                  <div className='info-news'>
+                    <p className='author-news'>{value.author}</p>
+                    <p className='date-news'>{value.dateCreate}</p>
+                  </div>
                 </div>
                 <div className='controlNews'>
                   <Button

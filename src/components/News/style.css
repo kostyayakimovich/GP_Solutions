@@ -10,6 +10,9 @@
   align-items: center;
   border-bottom: 1px solid#222;
   padding-bottom: 5px;
+  word-break: break-all;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .controlNews {
   display: flex;
@@ -18,8 +21,6 @@
   margin-top: 10px;
 }
 .textNews {
-  overflow: hidden;
-  word-wrap: break-word;
   flex-basis: 85%;
   text-align: justify;
   margin: 0 10px 10px 0;
@@ -28,6 +29,17 @@
   background-color: rgb(204, 226, 164);
   font-size: 1.5em;
   padding: 5px;
+}
+
+.info-news {
+  color: rgb(123, 138, 97);
+  font-size: 0.8em;
+}
+.author-news {
+  margin: 5px 10px 0 10px;
+}
+.date-news {
+  margin: 0 10px 0 10px;
 }
 
 @media screen and (max-width: 500px) {

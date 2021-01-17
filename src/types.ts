@@ -13,6 +13,14 @@ export type CurrentNews = {
   id: string;
   title: string;
   body: string;
+  dateCreate: string;
+  author: string;
 };
 
-export type Payload = { id?: string; title: string; body: string };
+export type Payload = {
+  id?: string;
+  dateCreate?: string;
+  title: string;
+  body: string;
+  author: string;
+};

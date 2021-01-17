@@ -7,6 +7,9 @@
   background-color: #222;
   color: #ddd;
 }
+.logo {
+  margin-right: 10px;
+}
 .input-wrapper {
   width: 500px;
   margin: 50px auto;

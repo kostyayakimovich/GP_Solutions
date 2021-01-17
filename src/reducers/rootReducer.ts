@@ -10,6 +10,8 @@ const defaultState = {
 function reducer(state = defaultState, action: Action) {
   switch (action.type) {
     case 'ADD':
+      console.log(action.payload);
+
       return { ...state, news: [action.payload, ...state.news] };
     case 'DELETE': {
       return {

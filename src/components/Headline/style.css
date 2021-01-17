@@ -1,0 +1,26 @@
+.headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ddd;
+  margin: 20px;
+}
+.sort-block {
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 935px) {
+  .sort-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .headline {
+    justify-content: space-around;
+  }
+}
+@media screen and (max-width: 360px) {
+  .headline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

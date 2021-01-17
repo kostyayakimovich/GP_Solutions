@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { ModalType, CurrentNews, Payload } from '../../types';
 import AddForm from '../AddForm';
@@ -15,9 +16,13 @@ type Props = {
 
 const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
   const dispatch = useDispatch();
+  const getDate = () => moment().format('dddd MMMM D, h:mm:ss');
   const handleAdd = useCallback(
     (payload: Payload) => {
-      dispatch({ type: ADD, payload: { ...payload, id: uuidv4() } });
+      dispatch({
+        type: ADD,
+        payload: { ...payload, id: uuidv4(), dateCreate: getDate() },
+      });
       closeModal();
     },
     [closeModal, dispatch]
@@ -46,6 +51,7 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
             buttonName='Add news'
             titleValue=''
             bodyValue=''
+            authorValue=''
           />
         )}
         {type === ModalType.Edit && (
@@ -55,6 +61,7 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
             buttonName='Edit news'
             titleValue={currentNews?.title || ''}
             bodyValue={currentNews?.body || ''}
+            authorValue={currentNews?.author || ''}
           />
         )}
         {type === ModalType.Delete && (

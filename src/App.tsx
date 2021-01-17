@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
+import Headline from './components/Headline';
 import Modal from './components/Modal';
 import News from './components/News';
 import { ModalType, CurrentNews } from './types';
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className='App'>
       <Header setIsModalOpen={setIsModalOpen} setModalType={setModalType} />
+      <Headline />
       <News openModal={openModal} />
       {isModalOpen && (
         <Modal

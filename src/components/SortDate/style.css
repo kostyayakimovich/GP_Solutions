@@ -1,0 +1,11 @@
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.headline-title {
+  margin: 0;
+}
+.dropdown-select {
+  background: #ddd;
+}
