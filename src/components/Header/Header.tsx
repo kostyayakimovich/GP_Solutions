@@ -36,14 +36,12 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter') {
         dispatch({ type: SEARCH, payload: valueInput });
-        setValueInput('');
       }
     },
     [valueInput, dispatch]
   );
   const handleFindClick = useCallback(() => {
     dispatch({ type: SEARCH, payload: valueInput });
-    setValueInput('');
   }, [dispatch, valueInput]);
 
   const handleChangeInput = useCallback(
@@ -54,6 +52,7 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   );
 
   const handleClearSearchClick = useCallback(() => {
+    setValueInput('');
     dispatch({ type: SEARCH, payload: '' });
   }, [dispatch]);
 
