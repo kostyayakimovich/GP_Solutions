@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { SORTDATE } from '../../reducers/types';
 import './style.css';
 
-type Props = {};
+const SortDate: React.FC = () => {
+  const dispatch = useDispatch();
 
-const SortDate: React.FC<Props> = () => {
+  const handleChange = useCallback(
+    (e) => {
+      dispatch({
+        type: SORTDATE,
+        payload: e.target.value === 'ASC',
+      });
+    },
+    [dispatch]
+  );
+
   return (
     <div className='dropdown'>
       <p className='headline-title'>Sort news by date...</p>
-      <select name='one' className='dropdown-select'>
-        <option value='1'>Sort Newest to Oldest</option>
-        <option value='2'>Sort Oldest to Newest</option>
+      <select name='one' className='dropdown-select' onChange={handleChange}>
+        <option value='DESC'>Sort Newest to Oldest</option>
+        <option value='ASC'>Sort Oldest to Newest</option>
       </select>
     </div>
   );

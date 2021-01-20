@@ -1,5 +1,6 @@
 import { news } from './defaultState';
 import { Action } from '../types';
+import { SORTDATE, ADD, DELETE, EDIT } from './types';
 
 const defaultState = {
   news,
@@ -9,17 +10,15 @@ const defaultState = {
 
 function reducer(state = defaultState, action: Action) {
   switch (action.type) {
-    case 'ADD':
-      console.log(action.payload);
-
+    case ADD:
       return { ...state, news: [action.payload, ...state.news] };
-    case 'DELETE': {
+    case DELETE: {
       return {
         ...state,
         news: state.news.filter(({ id }) => id !== action.payload.id),
       };
     }
-    case 'EDIT': {
+    case EDIT: {
       return {
         ...state,
         news: state.news.map((item) => {
@@ -34,6 +33,12 @@ function reducer(state = defaultState, action: Action) {
       return {
         ...state,
         searchString: action.payload.trim(),
+      };
+    }
+    case SORTDATE: {
+      return {
+        ...state,
+        isSortDate: action.payload,
       };
     }
     default:

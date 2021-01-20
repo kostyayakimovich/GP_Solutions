@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useFilter } from './hooks';
+import { useFilter, useSortDate } from './hooks';
 import { CurrentNews, ModalType } from '../../types';
 import Button from '../Button';
 import './style.css';
@@ -8,6 +8,7 @@ import './style.css';
 type State = {
   news: CurrentNews[];
   searchString: string;
+  isSortDate: boolean;
 };
 
 type Props = {
@@ -17,16 +18,23 @@ type Props = {
 const News: React.FC<Props> = ({ openModal }) => {
   const news = useSelector((state: State) => state.news);
   const searchString = useSelector((state: State) => state.searchString);
+  const isSortDate = useSelector((state: State) => state.isSortDate);
 
   const { filteredNews } = useFilter(searchString, news);
-
+  const { sortedNews } = useSortDate(isSortDate, news);
   const [newsList, setNewsList] = useState(
     filteredNews.length ? filteredNews : news
   );
 
   useEffect(() => {
-    setNewsList(searchString ? filteredNews : news);
-  }, [filteredNews, news, searchString]);
+    if (searchString) {
+      setNewsList(filteredNews);
+    } else if (isSortDate) {
+      setNewsList(sortedNews);
+    } else {
+      setNewsList(news);
+    }
+  }, [filteredNews, sortedNews, news, searchString, isSortDate]);
 
   return (
     <>

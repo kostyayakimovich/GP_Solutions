@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { CurrentNews } from '../../types';
 
 export const useFilter = (searchString: string, news: CurrentNews[]) => {
@@ -26,4 +26,24 @@ export const useFilter = (searchString: string, news: CurrentNews[]) => {
   }, [news, searchString, setFilteredNews]);
 
   return { filteredNews };
+};
+
+export const useSortDate = (isSortDate: boolean, news: CurrentNews[]) => {
+  const sortedNews = useMemo(
+    () =>
+      isSortDate
+        ? news.sort(
+            (left, right) =>
+              new Date(left.dateCreate).valueOf() -
+              new Date(right.dateCreate).valueOf()
+          )
+        : news.sort(
+            (left, right) =>
+              new Date(right.dateCreate).valueOf() -
+              new Date(left.dateCreate).valueOf()
+          ),
+    [isSortDate, news]
+  );
+
+  return { sortedNews };
 };
