@@ -4,19 +4,8 @@
   align-items: flex-start;
   margin: 0 20px;
 }
-.input-headline {
-  background: #ddd;
-}
-.search-icon-headline {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-.input-headline-wrapper {
-  display: flex;
-  align-items: center;
-}
-@media screen and (max-width: 935px) {
+
+@media screen and (max-width: 972px) {
   .sortAuthor {
     margin: 0;
   }

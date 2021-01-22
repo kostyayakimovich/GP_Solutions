@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useFilter, useSortDate } from './hooks';
+import { getFilteredNews } from './helpers';
 import { CurrentNews, ModalType } from '../../types';
 import Button from '../Button';
 import './style.css';
@@ -8,7 +8,8 @@ import './style.css';
 type State = {
   news: CurrentNews[];
   searchString: string;
-  isSortDate: boolean;
+  searchAuthor: string;
+  valueSortDate: string;
 };
 
 type Props = {
@@ -18,23 +19,15 @@ type Props = {
 const News: React.FC<Props> = ({ openModal }) => {
   const news = useSelector((state: State) => state.news);
   const searchString = useSelector((state: State) => state.searchString);
-  const isSortDate = useSelector((state: State) => state.isSortDate);
-
-  const { filteredNews } = useFilter(searchString, news);
-  const { sortedNews } = useSortDate(isSortDate, news);
-  const [newsList, setNewsList] = useState(
-    filteredNews.length ? filteredNews : news
-  );
+  const valueSortDate = useSelector((state: State) => state.valueSortDate);
+  const searchAuthor = useSelector((state: State) => state.searchAuthor);
+  const [newsList, setNewsList] = useState(news);
 
   useEffect(() => {
-    if (searchString) {
-      setNewsList(filteredNews);
-    } else if (isSortDate) {
-      setNewsList(sortedNews);
-    } else {
-      setNewsList(news);
-    }
-  }, [filteredNews, sortedNews, news, searchString, isSortDate]);
+    setNewsList(
+      getFilteredNews(news, searchAuthor, searchString, valueSortDate)
+    );
+  }, [news, valueSortDate, searchString, searchAuthor]);
 
   return (
     <>

@@ -1,10 +1,11 @@
 import { news } from './defaultState';
 import { Action } from '../types';
-import { SORTDATE, ADD, DELETE, EDIT } from './types';
+import { SORTDATE, ADD, DELETE, EDIT, SEARCH, SORTAUTHOR } from './types';
 
 const defaultState = {
   news,
   searchString: null,
+  searchAuthor: null,
   findNews: [],
 };
 
@@ -29,7 +30,7 @@ function reducer(state = defaultState, action: Action) {
         }),
       };
     }
-    case 'SEARCH': {
+    case SEARCH: {
       return {
         ...state,
         searchString: action.payload.trim(),
@@ -38,7 +39,13 @@ function reducer(state = defaultState, action: Action) {
     case SORTDATE: {
       return {
         ...state,
-        isSortDate: action.payload,
+        valueSortDate: action.payload,
+      };
+    }
+    case SORTAUTHOR: {
+      return {
+        ...state,
+        searchAuthor: action.payload.trim(),
       };
     }
     default:
