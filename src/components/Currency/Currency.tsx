@@ -19,11 +19,11 @@ const Currency: React.FC<Props> = () => {
         <p className='currency-value'>2560,20</p>
       </div>
       <div className='currency-card'>
-        <p className='currency-name'>PZ:</p>
+        <p className='currency-name'>PLN:</p>
         <p className='currency-value'>2560,20</p>
       </div>
       <div className='currency-card'>
-        <p className='currency-name'>UH:</p>
+        <p className='currency-name'>UAH:</p>
         <p className='currency-value'>2560,20</p>
       </div>
     </article>

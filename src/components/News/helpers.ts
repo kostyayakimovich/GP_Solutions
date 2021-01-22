@@ -27,9 +27,9 @@ const wordFilter = (searchString: string, news: CurrentNews[]) => {
   }, []);
   return findNewsForSearch;
 };
-const sortDate = (isSortDate: string, news: CurrentNews[]) => {
+const sortDate = (valueSortDate: string, news: CurrentNews[]) => {
   const sortedNews = [...news];
-  if (isSortDate === 'ASC') {
+  if (valueSortDate === 'ASC') {
     sortedNews.sort(
       (left, right) =>
         new Date(left.dateCreate).valueOf() -
@@ -37,7 +37,7 @@ const sortDate = (isSortDate: string, news: CurrentNews[]) => {
     );
   }
 
-  if (isSortDate === 'DESC') {
+  if (valueSortDate === 'DESC') {
     sortedNews.sort(
       (left, right) =>
         new Date(right.dateCreate).valueOf() -
@@ -69,32 +69,17 @@ export const getFilteredNews = (
   searchString: string,
   valueSortDate: string
 ) => {
-  const dataSortDate = () => sortDate(valueSortDate, news);
-  const dataSearchString = () =>
-    searchString ? wordFilter(searchString, news) : dataSortDate();
+  const sortedBySearchString = searchString
+    ? wordFilter(searchString, news)
+    : news;
 
-  const dataSearchAuthor = (valueSortDate: string) =>
-    searchAuthor
-      ? sortAuthor(searchAuthor, news, valueSortDate)
-      : dataSearchString();
-  const dataSortDateAndString = () =>
-    searchString && valueSortDate
-      ? wordFilter(searchString, dataSortDate())
-      : dataSearchAuthor(valueSortDate);
+  const sortedByAuthor = searchAuthor
+    ? sortAuthor(searchAuthor, sortedBySearchString, valueSortDate)
+    : sortedBySearchString;
 
-  const dataSearchAuthorAndString = () =>
-    searchString && searchAuthor
-      ? wordFilter(searchString, dataSearchAuthor(valueSortDate))
-      : dataSortDateAndString();
+  const sortedByDate = valueSortDate
+    ? sortDate(valueSortDate, sortedByAuthor)
+    : sortedByAuthor;
 
-  const dataSortAuthorAndDate = () =>
-    searchAuthor && valueSortDate
-      ? sortDate(valueSortDate, dataSearchAuthor(valueSortDate))
-      : dataSearchAuthorAndString();
-  const dataAllParams = () =>
-    searchAuthor && searchString && valueSortDate
-      ? wordFilter(searchString, dataSearchAuthor(valueSortDate))
-      : dataSortAuthorAndDate();
-
-  return dataAllParams;
+  return sortedByDate;
 };
