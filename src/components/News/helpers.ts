@@ -77,11 +77,15 @@ export const getFilteredNews = (
     searchAuthor
       ? sortAuthor(searchAuthor, news, valueSortDate)
       : dataSearchString();
+  const dataSortDateAndString = () =>
+    searchString && valueSortDate
+      ? wordFilter(searchString, dataSortDate())
+      : dataSearchAuthor(valueSortDate);
 
   const dataSearchAuthorAndString = () =>
     searchString && searchAuthor
       ? wordFilter(searchString, dataSearchAuthor(valueSortDate))
-      : dataSearchAuthor(valueSortDate);
+      : dataSortDateAndString();
 
   const dataSortAuthorAndDate = () =>
     searchAuthor && valueSortDate
