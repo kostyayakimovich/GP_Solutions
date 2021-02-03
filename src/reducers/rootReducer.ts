@@ -22,6 +22,7 @@ const defaultState = {
   users,
   currentUser: null,
   currency: [],
+  dataNBRB: {},
 };
 
 function reducer(state = defaultState, action: Action) {
@@ -29,6 +30,7 @@ function reducer(state = defaultState, action: Action) {
     case FETCH_CURRENCY: {
       return {
         ...state,
+        dataNBRB: action.payload,
       };
     }
     case ADD:

@@ -21,6 +21,11 @@ export type CurrentNews = {
   dateCreate: string;
   author: string;
 };
+export type CurrentCurrency = {
+  Cur_ID: string;
+  Cur_OfficialRate: string;
+  Cur_Abbreviation: string;
+};
 
 export type Payload = {
   id?: string;

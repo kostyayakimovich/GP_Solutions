@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadDataNBRB } from '../../actions';
+import { CurrentCurrency } from '../../types';
 import './style.css';
 
-type Props = {};
+type State = {
+  dataNBRB: CurrentCurrency[];
+};
 
-const Currency: React.FC<Props> = () => {
+const Currency: React.FC = () => {
+  const dispatch = useDispatch();
+  const dataNBRB = useSelector((state: State) => state.dataNBRB);
+
+  useEffect(() => {
+    dispatch(loadDataNBRB());
+  }, [dispatch]);
+
   return (
     <article className='currency'>
-      <div className='currency-card'>
-        <p className='currency-name'>USD:</p>
-        <p className='currency-value'>2560,20</p>
-      </div>
-      <div className='currency-card'>
-        <p className='currency-name'>EUR:</p>
-        <p className='currency-value'>2560,20</p>
-      </div>
-      <div className='currency-card'>
-        <p className='currency-name'>RUB:</p>
-        <p className='currency-value'>2560,20</p>
-      </div>
-      <div className='currency-card'>
-        <p className='currency-name'>PLN:</p>
-        <p className='currency-value'>2560,20</p>
-      </div>
-      <div className='currency-card'>
-        <p className='currency-name'>UAH:</p>
-        <p className='currency-value'>2560,20</p>
-      </div>
+      {dataNBRB.length &&
+        dataNBRB.map((item) => {
+          return (
+            <div className='currency-card' key={item.Cur_ID}>
+              <p className='currency-name'>{item.Cur_Abbreviation}: </p>
+              <p className='currency-value'>
+                {Number(item.Cur_OfficialRate).toFixed(2)}
+              </p>
+            </div>
+          );
+        })}
     </article>
   );
 };
