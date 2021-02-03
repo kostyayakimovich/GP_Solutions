@@ -87,12 +87,7 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
                   pattern='[A-Za-z0-9]{1,32}'
                   minLength={2}
                   maxLength={30}
-                  ref={register({
-                    required: true,
-                    pattern: /^[A-Za-z]+$/i,
-                    minLength: 2,
-                    maxLength: 30,
-                  })}
+                  ref={register({ required: true })}
                 />
                 {errors.login && errors.login.type === 'required' && (
                   <div className='error'>You must enter your login.</div>
@@ -159,12 +154,10 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
                   className='modal-input'
                   placeholder='Login...'
                   id='login'
-                  ref={register({
-                    required: true,
-                    pattern: /^[A-Za-z]+$/i,
-                    minLength: 2,
-                    maxLength: 30,
-                  })}
+                  pattern='[A-Za-z0-9]{1,32}'
+                  minLength={2}
+                  maxLength={30}
+                  ref={register({ required: true })}
                 />
                 {errors.login && errors.login.type === 'required' && (
                   <div className='error'>You must enter your login.</div>
