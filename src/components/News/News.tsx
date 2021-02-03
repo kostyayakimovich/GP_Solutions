@@ -10,6 +10,7 @@ type State = {
   searchString: string;
   searchAuthor: string;
   valueSortDate: string;
+  currentUser: string;
 };
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
 
 const News: React.FC<Props> = ({ openModal }) => {
   const news = useSelector((state: State) => state.news);
+  const loginUser = useSelector((state: State) => state.currentUser);
   const searchString = useSelector((state: State) => state.searchString);
   const valueSortDate = useSelector((state: State) => state.valueSortDate);
   const searchAuthor = useSelector((state: State) => state.searchAuthor);
@@ -49,16 +51,20 @@ const News: React.FC<Props> = ({ openModal }) => {
                     <p className='date-news'>{value.dateCreate}</p>
                   </div>
                 </div>
-                <div className='controlNews'>
-                  <Button
-                    buttonName='Edit'
-                    onClick={() => openModal(originalNews, ModalType.Edit)}
-                  />
-                  <Button
-                    buttonName='Delete'
-                    onClick={() => openModal(value, ModalType.Delete)}
-                  />
-                </div>
+                {(loginUser === value.author || loginUser === 'Admin') && (
+                  <div className='controlNews'>
+                    <Button
+                      buttonName='Edit'
+                      onClick={() => openModal(originalNews, ModalType.Edit)}
+                      typeBtn='button'
+                    />
+                    <Button
+                      buttonName='Delete'
+                      typeBtn='button'
+                      onClick={() => openModal(value, ModalType.Delete)}
+                    />
+                  </div>
+                )}
               </article>
             );
           })

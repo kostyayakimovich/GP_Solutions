@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SORTAUTHOR } from '../../reducers/types';
+import { SORT_AUTHOR } from '../../reducers/types';
 import { CurrentNews } from '../../types';
 import './style.css';
 
@@ -24,7 +24,7 @@ const SortAuthor: React.FC = () => {
   const handleChange = useCallback(
     (e) => {
       dispatch({
-        type: SORTAUTHOR,
+        type: SORT_AUTHOR,
         payload: e.target.value,
       });
     },

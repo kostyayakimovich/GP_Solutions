@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Payload } from '../../types';
 import Button from '../Button';
 
@@ -9,6 +10,9 @@ type Props = {
   bodyValue: string;
   buttonName: string;
   authorValue: string;
+};
+type State = {
+  currentUser: string;
 };
 
 const AddForm: React.FC<Props> = ({
@@ -22,7 +26,7 @@ const AddForm: React.FC<Props> = ({
   const [title, setTitle] = useState(titleValue);
   const [body, setDescription] = useState(bodyValue);
   const [author, setAuthor] = useState(authorValue);
-
+  const loginUser = useSelector((state: State) => state.currentUser);
   const handleChangeTitle = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setTitle(event.target.value);
@@ -30,12 +34,9 @@ const AddForm: React.FC<Props> = ({
     []
   );
 
-  const handleChangeAuthor = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAuthor(event.target.value);
-    },
-    []
-  );
+  useEffect(() => {
+    setAuthor(loginUser);
+  }, [loginUser]);
 
   const handleChangeDescription = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,17 +51,6 @@ const AddForm: React.FC<Props> = ({
 
   return (
     <div className='modal-action'>
-      <p>
-        <input
-          name='author'
-          type='text'
-          className='modal-input'
-          placeholder='Author news'
-          id='author'
-          value={author}
-          onChange={handleChangeAuthor}
-        />
-      </p>
       <p>
         <input
           name='title'
@@ -83,8 +73,8 @@ const AddForm: React.FC<Props> = ({
         ></textarea>
       </p>
       <div className='modal-control'>
-        <Button buttonName={buttonName} onClick={onClick} />
-        <Button buttonName='Exit' onClick={onClose} />
+        <Button buttonName={buttonName} typeBtn='button' onClick={onClick} />
+        <Button buttonName='Exit' typeBtn='button' onClick={onClose} />
       </div>
     </div>
   );

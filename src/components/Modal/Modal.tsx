@@ -68,8 +68,12 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
           <div className='modal-action'>
             <h3>Do you want remove this news?</h3>
             <div className='modal-control'>
-              <Button buttonName='Yes' onClick={handleDelete} />
-              <Button buttonName='No' onClick={closeModal} />
+              <Button
+                buttonName='Yes'
+                typeBtn='button'
+                onClick={handleDelete}
+              />
+              <Button buttonName='No' typeBtn='button' onClick={closeModal} />
             </div>
           </div>
         )}

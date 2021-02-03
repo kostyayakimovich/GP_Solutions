@@ -2,13 +2,14 @@ import React from 'react';
 import './style.css';
 
 type Props = {
-  onClick: () => void;
+  onClick?: () => void;
   buttonName: string;
+  typeBtn: 'button' | 'submit' | 'reset';
 };
 
-const Button: React.FC<Props> = ({ buttonName, onClick }) => {
+const Button: React.FC<Props> = ({ buttonName, onClick, typeBtn }) => {
   return (
-    <button className='btn' onClick={onClick}>
+    <button className='btn' onClick={onClick} type={typeBtn}>
       {buttonName}
     </button>
   );

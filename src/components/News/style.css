@@ -6,8 +6,8 @@
 
 .cardNews {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
   border-bottom: 1px solid#222;
   padding-bottom: 5px;
   word-break: break-all;
@@ -16,12 +16,11 @@
 }
 .controlNews {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: left;
   margin-top: 10px;
 }
 .textNews {
-  flex-basis: 85%;
   text-align: justify;
   margin: 0 10px 10px 0;
 }
@@ -40,13 +39,4 @@
 }
 .date-news {
   margin: 0 10px 0 10px;
-}
-
-@media screen and (max-width: 500px) {
-  .cardNews {
-    flex-direction: column;
-  }
-  .controlNews {
-    flex-direction: row;
-  }
 }

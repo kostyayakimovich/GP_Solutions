@@ -1,16 +1,36 @@
-import { news } from './defaultState';
+import { news, users } from './defaultState';
 import { Action } from '../types';
-import { SORTDATE, ADD, DELETE, EDIT, SEARCH, SORTAUTHOR } from './types';
+import {
+  SORT_DATE,
+  ADD,
+  DELETE,
+  EDIT,
+  SEARCH,
+  SORT_AUTHOR,
+  LOGIN,
+  SIGNIN,
+  REMOVE_USER,
+  EXIT_USER,
+  FETCH_CURRENCY,
+} from './types';
 
 const defaultState = {
   news,
   searchString: null,
   searchAuthor: null,
   findNews: [],
+  users,
+  currentUser: null,
+  currency: [],
 };
 
 function reducer(state = defaultState, action: Action) {
   switch (action.type) {
+    case FETCH_CURRENCY: {
+      return {
+        ...state,
+      };
+    }
     case ADD:
       return { ...state, news: [action.payload, ...state.news] };
     case DELETE: {
@@ -36,16 +56,42 @@ function reducer(state = defaultState, action: Action) {
         searchString: action.payload.trim(),
       };
     }
-    case SORTDATE: {
+    case SORT_DATE: {
       return {
         ...state,
         valueSortDate: action.payload,
       };
     }
-    case SORTAUTHOR: {
+    case SORT_AUTHOR: {
       return {
         ...state,
         searchAuthor: action.payload.trim(),
+      };
+    }
+    case LOGIN: {
+      return {
+        ...state,
+        currentUser: action.payload.login,
+        users: [...state.users, action.payload],
+      };
+    }
+    case SIGNIN: {
+      return {
+        ...state,
+        currentUser: action.payload.login,
+      };
+    }
+    case REMOVE_USER: {
+      return {
+        ...state,
+        users: [...state.users.filter((item) => item.login !== action.payload)],
+        currentUser: null,
+      };
+    }
+    case EXIT_USER: {
+      return {
+        ...state,
+        currentUser: null,
       };
     }
     default:

@@ -1,0 +1,50 @@
+.user-panel-nav {
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.icon-settings {
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.up-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  background-color: #f1f1f1;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 40px;
+}
+
+.dropdown-content p {
+  color: black;
+  padding: 5px 10px;
+  font-size: 0.8em;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content p:hover {
+  background-color: #ddd;
+}
+@media screen and (max-width: 715px) {
+  .dropdown-content {
+    top: 62px;
+    right: auto;
+  }
+}
+@media screen and (max-width: 359px) {
+  .dropdown-content {
+    top: 100px;
+  }
+}

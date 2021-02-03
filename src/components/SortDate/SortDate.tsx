@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { SORTDATE } from '../../reducers/types';
+import { SORT_DATE } from '../../reducers/types';
 import './style.css';
 
 const SortDate: React.FC = () => {
@@ -8,7 +8,7 @@ const SortDate: React.FC = () => {
   const handleChange = useCallback(
     (e) => {
       dispatch({
-        type: SORTDATE,
+        type: SORT_DATE,
         payload: e.target.value,
       });
     },

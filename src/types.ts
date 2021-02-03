@@ -4,6 +4,11 @@ export enum ModalType {
   Delete = 'delete',
 }
 
+export enum RegisterType {
+  Login = 'login',
+  Signin = 'signin',
+}
+
 export type Action = {
   type: string;
   payload: any;
@@ -23,4 +28,10 @@ export type Payload = {
   title: string;
   body: string;
   author: string;
+};
+
+export type Person = {
+  login: string;
+  email: string;
+  password: string;
 };

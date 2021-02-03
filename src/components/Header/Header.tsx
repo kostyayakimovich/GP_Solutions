@@ -1,24 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
-import { ModalType } from '../../types';
+import { ModalType, RegisterType } from '../../types';
 import { SEARCH } from '../../reducers/types';
 import Button from '../Button';
+import LoginLinks from './LoginLinks';
 import './style.css';
+import UserPanel from './UserPanel';
 
 type State = {
   searchString: string;
+  currentUser: string;
 };
 
 type Props = {
   setIsModalOpen: (isOpen: boolean) => void;
   setModalType: (type: ModalType) => void;
+  openRegister: (type: RegisterType) => void;
+  type: RegisterType;
 };
 
-const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
+const Header: React.FC<Props> = ({
+  setIsModalOpen,
+  setModalType,
+  openRegister,
+}) => {
   const [valueInput, setValueInput] = useState('');
+  const [userName, setUserName] = useState('');
   const dispatch = useDispatch();
 
   const handleKeyUpInput = useCallback((event) => {
@@ -31,6 +41,11 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   }, [setIsModalOpen, setModalType]);
 
   const searchString = useSelector((state: State) => state.searchString);
+  const loginUser = useSelector((state: State) => state.currentUser);
+
+  useEffect(() => {
+    setUserName(loginUser);
+  }, [loginUser]);
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent) => {
@@ -59,7 +74,7 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   return (
     <>
       <header className='header'>
-        <h1 className='logo'>GP Solutuons News</h1>
+        <h1 className='logo'>GP Solutions News</h1>
         <div className='search'>
           <div className='input-wrapper' data-text={valueInput}>
             <input
@@ -81,7 +96,14 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
             />
           </div>
         </div>
-        <Button buttonName='Add news' onClick={handleAdd} />
+        {userName && (
+          <Button buttonName='Add news' onClick={handleAdd} typeBtn='button' />
+        )}
+        {userName ? (
+          <UserPanel userName={userName} setUserName={setUserName} />
+        ) : (
+          <LoginLinks openRegister={openRegister} />
+        )}
       </header>
       {searchString && (
         <div className='message'>

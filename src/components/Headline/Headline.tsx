@@ -4,9 +4,7 @@ import SortAuthor from '../SortAuthor';
 import SortDate from '../SortDate';
 import './style.css';
 
-type Props = {};
-
-const Headline: React.FC<Props> = () => {
+const Headline: React.FC = () => {
   return (
     <section className='headline'>
       <Currency />

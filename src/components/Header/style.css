@@ -1,4 +1,5 @@
 .header {
+  position: relative;
   margin: 0 20px;
   display: flex;
   align-items: center;
@@ -60,6 +61,25 @@
   cursor: pointer;
 }
 
+.login-links {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  display: flex;
+  font-size: 0.8em;
+}
+.login-text {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.signin-text {
+  cursor: pointer;
+}
+.login-text:hover,
+.signin-text:hover {
+  color: rgb(247, 59, 59);
+}
+
 @media screen and (max-width: 1000px) {
   .header {
     flex-direction: column;
@@ -77,5 +97,18 @@
   .search {
     width: 300px;
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 715px) {
+  .login-links {
+    top: 60px;
+    right: auto;
+  }
+}
+@media screen and (max-width: 359px) {
+  .login-links {
+    top: 100px;
+    right: auto;
   }
 }
