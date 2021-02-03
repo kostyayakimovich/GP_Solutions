@@ -1,3 +1,5 @@
 ## link: https://gp-solutions-news-part3.netlify.app/
 
-# min-width app: 320px;
+### login for admin: Admin
+
+### password for admin: a1234
