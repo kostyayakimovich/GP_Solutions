@@ -2,19 +2,19 @@ import React, { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { ModalType, CurrentNews, Payload } from '../../types';
+import { NewsModalType, CurrentNews, Payload } from '../../types';
 import AddForm from '../AddForm';
 import Button from '../Button';
 import { ADD, DELETE, EDIT } from '../../reducers/types';
 import './style.css';
 
 type Props = {
-  type: ModalType;
-  closeModal: () => void;
+  type: NewsModalType;
+  closeNewsModal: () => void;
   currentNews: CurrentNews | null;
 };
 
-const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
+const Modal: React.FC<Props> = ({ type, closeNewsModal, currentNews }) => {
   const dispatch = useDispatch();
   const getDate = () => moment().format('dddd MMMM D, h:mm:ss');
   const handleAdd = useCallback(
@@ -23,48 +23,48 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
         type: ADD,
         payload: { ...payload, id: uuidv4(), dateCreate: getDate() },
       });
-      closeModal();
+      closeNewsModal();
     },
-    [closeModal, dispatch]
+    [closeNewsModal, dispatch]
   );
 
   const handleDelete = useCallback(() => {
     dispatch({ type: DELETE, payload: currentNews });
-    closeModal();
-  }, [currentNews, closeModal, dispatch]);
+    closeNewsModal();
+  }, [currentNews, closeNewsModal, dispatch]);
 
   const handleEdit = useCallback(
     (payload: Payload) => {
       dispatch({ type: EDIT, payload: { ...payload, id: currentNews?.id } });
-      closeModal();
+      closeNewsModal();
     },
-    [closeModal, dispatch, currentNews]
+    [closeNewsModal, dispatch, currentNews]
   );
 
   return (
     <article className='modal'>
       <div className='modal-card'>
-        {type === ModalType.Add && (
+        {type === NewsModalType.Add && (
           <AddForm
             onSubmit={handleAdd}
-            onClose={closeModal}
+            onClose={closeNewsModal}
             buttonName='Add news'
             titleValue=''
             bodyValue=''
             authorValue=''
           />
         )}
-        {type === ModalType.Edit && (
+        {type === NewsModalType.Edit && (
           <AddForm
             onSubmit={handleEdit}
-            onClose={closeModal}
+            onClose={closeNewsModal}
             buttonName='Edit news'
             titleValue={currentNews?.title || ''}
             bodyValue={currentNews?.body || ''}
             authorValue={currentNews?.author || ''}
           />
         )}
-        {type === ModalType.Delete && (
+        {type === NewsModalType.Delete && (
           <div className='modal-action'>
             <h3>Do you want remove this news?</h3>
             <div className='modal-control'>
@@ -73,7 +73,11 @@ const Modal: React.FC<Props> = ({ type, closeModal, currentNews }) => {
                 typeBtn='button'
                 onClick={handleDelete}
               />
-              <Button buttonName='No' typeBtn='button' onClick={closeModal} />
+              <Button
+                buttonName='No'
+                typeBtn='button'
+                onClick={closeNewsModal}
+              />
             </div>
           </div>
         )}

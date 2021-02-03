@@ -1,15 +1,15 @@
 import { FETCH_CURRENCY } from '../reducers/types';
 import { CURRENCY_CODES } from '../rootConstants';
 
-export const putDataNBRB = (dataFromNBRB: any) => {
+export const setCurrency = (dataFromNBRB: any) => {
   return {
     type: FETCH_CURRENCY,
     payload: dataFromNBRB,
   };
 };
 
-export const loadDataNBRB = () => async (dispatch: any) => {
-  const currencyNBRB = await Promise.all(
+export const fetchCurrency = () => async (dispatch: any) => {
+  const currency = await Promise.all(
     CURRENCY_CODES.map(async (item) => {
       const response = await fetch(
         ` https://www.nbrb.by/api/exrates/rates/${item}?parammode=1`
@@ -19,5 +19,5 @@ export const loadDataNBRB = () => async (dispatch: any) => {
     })
   );
 
-  dispatch(putDataNBRB(currencyNBRB));
+  dispatch(setCurrency(currency));
 };

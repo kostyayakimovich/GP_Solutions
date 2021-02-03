@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOGIN, SIGNIN } from '../../reducers/types';
-import { RegisterType, Person } from '../../types';
+import { CREATE, SIGNIN } from '../../reducers/types';
+import { LoginModalType, Person } from '../../types';
 import Button from '../Button';
-import { checkUserLogin, checkUserSignin } from './helpers';
+import { checkUserCreate, checkUserSignin } from './helpers';
 import './style.css';
 
 type Props = {
-  closeRegister: () => void;
-  type: RegisterType;
+  closeLoginModal: () => void;
+  type: LoginModalType;
 };
 type State = {
   users: [];
   currentUser: string;
 };
 
-const Register: React.FC<Props> = ({ closeRegister, type }) => {
+const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
   const [message, setMessage] = useState('');
   const [messageColor, setMessageColor] = useState('');
   const [userList, setUserList] = useState([]);
@@ -29,11 +29,15 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
 
   const onSubmit = useCallback(
     (data: Person) => {
-      if (type === 'login') {
-        const checkExistUser = checkUserLogin(userList, data.login, data.email);
+      if (type === 'create') {
+        const checkExistUser = checkUserCreate(
+          userList,
+          data.login,
+          data.email
+        );
         !checkExistUser
           ? dispatch({
-              type: LOGIN,
+              type: CREATE,
               payload: { ...data },
             }) && setMessage(`Hello ${data.login}`)
           : setMessage('User with the same login or email already exists');
@@ -61,14 +65,14 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
       message === `Hello ${loginUser}` ||
       message === `Hi again ${loginUser}`
     ) {
-      setTimeout(closeRegister, 3000);
+      setTimeout(closeLoginModal, 3000);
       setMessageColor('rgb(18, 128, 82)');
     }
-  }, [closeRegister, message, loginUser]);
+  }, [closeLoginModal, message, loginUser]);
 
   return (
     <>
-      {type === RegisterType.Login && (
+      {type === LoginModalType.Create && (
         <form className='modal form' onSubmit={handleSubmit(onSubmit)}>
           <div className='modal-card register-card'>
             <div className='modal-action'>
@@ -134,7 +138,7 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
                 <Button
                   buttonName='Exit'
                   typeBtn='button'
-                  onClick={closeRegister}
+                  onClick={closeLoginModal}
                 />
               </div>
               <div className='register-message'>
@@ -144,7 +148,7 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
           </div>
         </form>
       )}
-      {type === RegisterType.Signin && (
+      {type === LoginModalType.Signin && (
         <form className='modal form' onSubmit={handleSubmit(onSubmit)}>
           <div className='modal-card register-card'>
             <div className='modal-action'>
@@ -189,7 +193,7 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
                 <Button
                   buttonName='Exit'
                   typeBtn='button'
-                  onClick={closeRegister}
+                  onClick={closeLoginModal}
                 />
               </div>
               <div className='register-message'>
@@ -203,4 +207,4 @@ const Register: React.FC<Props> = ({ closeRegister, type }) => {
   );
 };
 
-export default Register;
+export default Login;

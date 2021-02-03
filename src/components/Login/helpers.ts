@@ -1,4 +1,8 @@
-export const checkUserLogin = (arrUsers: any, login: string, email: string) => {
+export const checkUserCreate = (
+  arrUsers: any,
+  login: string,
+  email: string
+) => {
   return arrUsers.find(
     (item: { login: string; email: string }) =>
       item.login === login || item.email === email

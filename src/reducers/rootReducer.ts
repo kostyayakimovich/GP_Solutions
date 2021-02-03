@@ -7,7 +7,7 @@ import {
   EDIT,
   SEARCH,
   SORT_AUTHOR,
-  LOGIN,
+  CREATE,
   SIGNIN,
   REMOVE_USER,
   EXIT_USER,
@@ -70,7 +70,7 @@ function reducer(state = defaultState, action: Action) {
         searchAuthor: action.payload.trim(),
       };
     }
-    case LOGIN: {
+    case CREATE: {
       return {
         ...state,
         currentUser: action.payload.login,

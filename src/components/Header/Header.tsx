@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
-import { ModalType, RegisterType } from '../../types';
+import { NewsModalType, LoginModalType } from '../../types';
 import { SEARCH } from '../../reducers/types';
 import Button from '../Button';
 import LoginLinks from './LoginLinks';
@@ -16,16 +16,16 @@ type State = {
 };
 
 type Props = {
-  setIsModalOpen: (isOpen: boolean) => void;
-  setModalType: (type: ModalType) => void;
-  openRegister: (type: RegisterType) => void;
-  type: RegisterType;
+  setIsNewsModalOpen: (isOpen: boolean) => void;
+  setNewsModalType: (type: NewsModalType) => void;
+  openLoginModal: (type: LoginModalType) => void;
+  type: LoginModalType;
 };
 
 const Header: React.FC<Props> = ({
-  setIsModalOpen,
-  setModalType,
-  openRegister,
+  setIsNewsModalOpen,
+  setNewsModalType,
+  openLoginModal,
 }) => {
   const [valueInput, setValueInput] = useState('');
   const [userName, setUserName] = useState('');
@@ -36,9 +36,9 @@ const Header: React.FC<Props> = ({
   }, []);
 
   const handleAdd = useCallback(() => {
-    setModalType(ModalType.Add);
-    setIsModalOpen(true);
-  }, [setIsModalOpen, setModalType]);
+    setNewsModalType(NewsModalType.Add);
+    setIsNewsModalOpen(true);
+  }, [setIsNewsModalOpen, setNewsModalType]);
 
   const searchString = useSelector((state: State) => state.searchString);
   const loginUser = useSelector((state: State) => state.currentUser);
@@ -102,7 +102,7 @@ const Header: React.FC<Props> = ({
         {userName ? (
           <UserPanel userName={userName} setUserName={setUserName} />
         ) : (
-          <LoginLinks openRegister={openRegister} />
+          <LoginLinks openLoginModal={openLoginModal} />
         )}
       </header>
       {searchString && (

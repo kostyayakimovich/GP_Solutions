@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getFilteredNews } from './helpers';
-import { CurrentNews, ModalType } from '../../types';
+import { CurrentNews, NewsModalType } from '../../types';
 import Button from '../Button';
 import './style.css';
 
@@ -14,10 +14,10 @@ type State = {
 };
 
 type Props = {
-  openModal: (news: CurrentNews, type: ModalType) => void;
+  openNewsModal: (news: CurrentNews, type: NewsModalType) => void;
 };
 
-const News: React.FC<Props> = ({ openModal }) => {
+const News: React.FC<Props> = ({ openNewsModal }) => {
   const news = useSelector((state: State) => state.news);
   const loginUser = useSelector((state: State) => state.currentUser);
   const searchString = useSelector((state: State) => state.searchString);
@@ -55,13 +55,15 @@ const News: React.FC<Props> = ({ openModal }) => {
                   <div className='controlNews'>
                     <Button
                       buttonName='Edit'
-                      onClick={() => openModal(originalNews, ModalType.Edit)}
+                      onClick={() =>
+                        openNewsModal(originalNews, NewsModalType.Edit)
+                      }
                       typeBtn='button'
                     />
                     <Button
                       buttonName='Delete'
                       typeBtn='button'
-                      onClick={() => openModal(value, ModalType.Delete)}
+                      onClick={() => openNewsModal(value, NewsModalType.Delete)}
                     />
                   </div>
                 )}

@@ -1,11 +1,11 @@
-export enum ModalType {
+export enum NewsModalType {
   Add = 'add',
   Edit = 'edit',
   Delete = 'delete',
 }
 
-export enum RegisterType {
-  Login = 'login',
+export enum LoginModalType {
+  Create = 'create',
   Signin = 'signin',
 }
 
@@ -22,9 +22,12 @@ export type CurrentNews = {
   author: string;
 };
 export type CurrentCurrency = {
-  Cur_ID: string;
-  Cur_OfficialRate: string;
   Cur_Abbreviation: string;
+  Cur_ID: number;
+  Cur_Name: string;
+  Cur_OfficialRate: number;
+  Cur_Scale: number;
+  Date: string;
 };
 
 export type Payload = {

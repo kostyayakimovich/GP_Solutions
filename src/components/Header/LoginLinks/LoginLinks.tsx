@@ -1,23 +1,23 @@
 import React from 'react';
-import { RegisterType } from '../../../types';
+import { LoginModalType } from '../../../types';
 import './style.css';
 
 type Props = {
-  openRegister: (type: RegisterType) => void;
+  openLoginModal: (type: LoginModalType) => void;
 };
 
-const LoginLinks: React.FC<Props> = ({ openRegister }) => {
+const LoginLinks: React.FC<Props> = ({ openLoginModal }) => {
   return (
     <div className='login-links'>
       <p
         className='login-text'
-        onClick={() => openRegister(RegisterType.Login)}
+        onClick={() => openLoginModal(LoginModalType.Create)}
       >
-        Log in
+        Create
       </p>
       <p
         className='signin-text'
-        onClick={() => openRegister(RegisterType.Signin)}
+        onClick={() => openLoginModal(LoginModalType.Signin)}
       >
         Sign in
       </p>

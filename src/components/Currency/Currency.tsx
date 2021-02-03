@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadDataNBRB } from '../../actions';
+import { fetchCurrency } from '../../actions';
 import { CurrentCurrency } from '../../types';
 import './style.css';
 
@@ -13,7 +13,7 @@ const Currency: React.FC = () => {
   const dataNBRB = useSelector((state: State) => state.dataNBRB);
 
   useEffect(() => {
-    dispatch(loadDataNBRB());
+    dispatch(fetchCurrency());
   }, [dispatch]);
 
   return (
@@ -24,7 +24,7 @@ const Currency: React.FC = () => {
             <div className='currency-card' key={item.Cur_ID}>
               <p className='currency-name'>{item.Cur_Abbreviation}: </p>
               <p className='currency-value'>
-                {Number(item.Cur_OfficialRate).toFixed(2)}
+                {item.Cur_OfficialRate.toFixed(2)}
               </p>
             </div>
           );
