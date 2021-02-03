@@ -6,21 +6,21 @@
 
 .cardNews {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
   border-bottom: 1px solid#222;
   padding-bottom: 5px;
+  word-break: break-all;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .controlNews {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: left;
   margin-top: 10px;
 }
 .textNews {
-  overflow: hidden;
-  word-wrap: break-word;
-  flex-basis: 85%;
   text-align: justify;
   margin: 0 10px 10px 0;
 }
@@ -30,11 +30,13 @@
   padding: 5px;
 }
 
-@media screen and (max-width: 500px) {
-  .cardNews {
-    flex-direction: column;
-  }
-  .controlNews {
-    flex-direction: row;
-  }
+.info-news {
+  color: rgb(123, 138, 97);
+  font-size: 0.8em;
+}
+.author-news {
+  margin: 5px 10px 0 10px;
+}
+.date-news {
+  margin: 0 10px 0 10px;
 }

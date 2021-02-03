@@ -1,24 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
-import { ModalType } from '../../types';
+import { NewsModalType, LoginModalType } from '../../types';
 import { SEARCH } from '../../reducers/types';
 import Button from '../Button';
+import LoginLinks from './LoginLinks';
 import './style.css';
+import UserPanel from './UserPanel';
 
 type State = {
   searchString: string;
+  currentUser: string;
 };
 
 type Props = {
-  setIsModalOpen: (isOpen: boolean) => void;
-  setModalType: (type: ModalType) => void;
+  setIsNewsModalOpen: (isOpen: boolean) => void;
+  setNewsModalType: (type: NewsModalType) => void;
+  openLoginModal: (type: LoginModalType) => void;
+  type: LoginModalType;
 };
 
-const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
+const Header: React.FC<Props> = ({
+  setIsNewsModalOpen,
+  setNewsModalType,
+  openLoginModal,
+}) => {
   const [valueInput, setValueInput] = useState('');
+  const [userName, setUserName] = useState('');
   const dispatch = useDispatch();
 
   const handleKeyUpInput = useCallback((event) => {
@@ -26,24 +36,27 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   }, []);
 
   const handleAdd = useCallback(() => {
-    setModalType(ModalType.Add);
-    setIsModalOpen(true);
-  }, [setIsModalOpen, setModalType]);
+    setNewsModalType(NewsModalType.Add);
+    setIsNewsModalOpen(true);
+  }, [setIsNewsModalOpen, setNewsModalType]);
 
   const searchString = useSelector((state: State) => state.searchString);
+  const loginUser = useSelector((state: State) => state.currentUser);
+
+  useEffect(() => {
+    setUserName(loginUser);
+  }, [loginUser]);
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter') {
         dispatch({ type: SEARCH, payload: valueInput });
-        setValueInput('');
       }
     },
     [valueInput, dispatch]
   );
   const handleFindClick = useCallback(() => {
     dispatch({ type: SEARCH, payload: valueInput });
-    setValueInput('');
   }, [dispatch, valueInput]);
 
   const handleChangeInput = useCallback(
@@ -54,13 +67,14 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
   );
 
   const handleClearSearchClick = useCallback(() => {
+    setValueInput('');
     dispatch({ type: SEARCH, payload: '' });
   }, [dispatch]);
 
   return (
     <>
       <header className='header'>
-        <h1 className='logo'>GP Solutuons News</h1>
+        <h1 className='logo'>GP Solutions News</h1>
         <div className='search'>
           <div className='input-wrapper' data-text={valueInput}>
             <input
@@ -82,7 +96,14 @@ const Header: React.FC<Props> = ({ setIsModalOpen, setModalType }) => {
             />
           </div>
         </div>
-        <Button buttonName='Add news' onClick={handleAdd} />
+        {userName && (
+          <Button buttonName='Add news' onClick={handleAdd} typeBtn='button' />
+        )}
+        {userName ? (
+          <UserPanel userName={userName} setUserName={setUserName} />
+        ) : (
+          <LoginLinks openLoginModal={openLoginModal} />
+        )}
       </header>
       {searchString && (
         <div className='message'>

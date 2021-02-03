@@ -1,3 +1,30 @@
+export const users = [
+  {
+    login: 'Petya',
+    email: 'petya@mail.com',
+    password: 'petya1',
+  },
+  {
+    login: 'Vasya',
+    email: 'vasya@mail.com',
+    password: 'vasya1',
+  },
+  {
+    login: 'Vika',
+    email: 'vika@mail.com',
+    password: 'vika1',
+  },
+  {
+    login: 'Masha',
+    email: 'masha@mail.com',
+    password: 'masha1',
+  },
+  {
+    login: 'Admin',
+    email: 'admin@mail.com',
+    password: 'a1234',
+  },
+];
 export const news = [
   {
     id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
@@ -11,6 +38,8 @@ export const news = [
      throughout the year is truly inspiring. And it’s amazing. Let’s continue
      to support each other, as better times for our industry will come soon.   
      We wish you peace, joy and prosperity throughout 2021!`,
+    dateCreate: 'Tuesday January 12, 10:36:40',
+    author: 'Petya',
   },
   {
     id: '9b1deb4d-3b7d-4bkd-9bdd-2b0d9b3dcb6d',
@@ -22,6 +51,8 @@ export const news = [
       We value each and every one of our customers. The trust in us is an
       endless source of inspiration for our team to work harder, be creative 
       and stay ever attentive to our clients’ wishes and needs.`,
+    dateCreate: 'Tuesday January 12, 10:37:40',
+    author: 'Vasya',
   },
   {
     id: '9b1de94d-3b7d-4bkd-9b2d-2b0d9b3dcb6d',
@@ -50,6 +81,8 @@ export const news = [
       you, the global travel trade an insight of how the industry will look in the future, 
       share innovations, and create endless business opportunities”.    
       More information about the event you can find here.`,
+    dateCreate: 'Monday January 11, 11:36:40',
+    author: 'Petya',
   },
   {
     id: '9b1deb4d-3b0d-4bkd-9bdd-2b0d3b3dcb6d',
@@ -85,6 +118,8 @@ export const news = [
        you are using, please adjust integration from your side.     
        You can also contact us via support@software.travel with “Release 8.4” in a subject
        line if you have any questions regarding the upcoming software release.`,
+    dateCreate: 'Sunday January 10, 10:36:40',
+    author: 'Vika',
   },
   {
     id: '9b17eb4d-3b7d-4bkd-9bdd-2b0d9b34cb6d',
@@ -103,5 +138,7 @@ export const news = [
        Airline, Tour Operator, or a travel supplier with an interest in reaching out to buyers
        (particularly from Asia), we welcome you to exhibit in the virtual exhibition.”        
        More details about the event you can find here.`,
+    dateCreate: 'Tuesday January 12, 10:30:40',
+    author: 'Masha',
   },
 ];

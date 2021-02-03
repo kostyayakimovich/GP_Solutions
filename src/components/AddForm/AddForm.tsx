@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Payload } from '../../types';
 import Button from '../Button';
 
@@ -8,6 +9,10 @@ type Props = {
   titleValue: string;
   bodyValue: string;
   buttonName: string;
+  authorValue: string;
+};
+type State = {
+  currentUser: string;
 };
 
 const AddForm: React.FC<Props> = ({
@@ -16,16 +21,23 @@ const AddForm: React.FC<Props> = ({
   titleValue,
   bodyValue,
   buttonName,
+  authorValue,
 }) => {
   const [title, setTitle] = useState(titleValue);
   const [body, setDescription] = useState(bodyValue);
-
+  const [author, setAuthor] = useState(authorValue);
+  const loginUser = useSelector((state: State) => state.currentUser);
   const handleChangeTitle = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setTitle(event.target.value);
     },
     []
   );
+
+  useEffect(() => {
+    setAuthor(loginUser);
+  }, [loginUser]);
+
   const handleChangeDescription = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setDescription(event.target.value);
@@ -33,11 +45,9 @@ const AddForm: React.FC<Props> = ({
     []
   );
 
-  const onClick = useCallback(() => onSubmit({ title, body }), [
-    body,
-    onSubmit,
-    title,
-  ]);
+  const onClick = useCallback(() => {
+    onSubmit({ title, body, author });
+  }, [body, onSubmit, title, author]);
 
   return (
     <div className='modal-action'>
@@ -63,8 +73,8 @@ const AddForm: React.FC<Props> = ({
         ></textarea>
       </p>
       <div className='modal-control'>
-        <Button buttonName={buttonName} onClick={onClick} />
-        <Button buttonName='Exit' onClick={onClose} />
+        <Button buttonName={buttonName} typeBtn='button' onClick={onClick} />
+        <Button buttonName='Exit' typeBtn='button' onClick={onClose} />
       </div>
     </div>
   );

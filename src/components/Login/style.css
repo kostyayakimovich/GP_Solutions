@@ -1,0 +1,10 @@
+.register-card {
+  max-width: 600px;
+}
+label {
+  color: #3c3c3c;
+}
+.register-card-input {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}

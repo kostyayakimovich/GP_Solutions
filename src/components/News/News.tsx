@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useFilter } from './hooks';
-import { CurrentNews, ModalType } from '../../types';
+import { getFilteredNews } from './helpers';
+import { CurrentNews, NewsModalType } from '../../types';
 import Button from '../Button';
 import './style.css';
 
 type State = {
   news: CurrentNews[];
   searchString: string;
+  searchAuthor: string;
+  valueSortDate: string;
+  currentUser: string;
 };
 
 type Props = {
-  openModal: (news: CurrentNews, type: ModalType) => void;
+  openNewsModal: (news: CurrentNews, type: NewsModalType) => void;
 };
 
-const News: React.FC<Props> = ({ openModal }) => {
+const News: React.FC<Props> = ({ openNewsModal }) => {
   const news = useSelector((state: State) => state.news);
+  const loginUser = useSelector((state: State) => state.currentUser);
   const searchString = useSelector((state: State) => state.searchString);
-
-  const { filteredNews } = useFilter(searchString, news);
-
-  const [newsList, setNewsList] = useState(
-    filteredNews.length ? filteredNews : news
-  );
+  const valueSortDate = useSelector((state: State) => state.valueSortDate);
+  const searchAuthor = useSelector((state: State) => state.searchAuthor);
+  const [newsList, setNewsList] = useState(news);
 
   useEffect(() => {
-    setNewsList(searchString ? filteredNews : news);
-  }, [filteredNews, news, searchString]);
+    setNewsList(
+      getFilteredNews(news, searchAuthor, searchString, valueSortDate)
+    );
+  }, [news, valueSortDate, searchString, searchAuthor]);
 
   return (
     <>
@@ -43,17 +46,27 @@ const News: React.FC<Props> = ({ openModal }) => {
                     dangerouslySetInnerHTML={{ __html: value.title }}
                   ></p>
                   <div dangerouslySetInnerHTML={{ __html: value.body }}></div>
+                  <div className='info-news'>
+                    <p className='author-news'>{value.author}</p>
+                    <p className='date-news'>{value.dateCreate}</p>
+                  </div>
                 </div>
-                <div className='controlNews'>
-                  <Button
-                    buttonName='Edit'
-                    onClick={() => openModal(originalNews, ModalType.Edit)}
-                  />
-                  <Button
-                    buttonName='Delete'
-                    onClick={() => openModal(value, ModalType.Delete)}
-                  />
-                </div>
+                {(loginUser === value.author || loginUser === 'Admin') && (
+                  <div className='controlNews'>
+                    <Button
+                      buttonName='Edit'
+                      onClick={() =>
+                        openNewsModal(originalNews, NewsModalType.Edit)
+                      }
+                      typeBtn='button'
+                    />
+                    <Button
+                      buttonName='Delete'
+                      typeBtn='button'
+                      onClick={() => openNewsModal(value, NewsModalType.Delete)}
+                    />
+                  </div>
+                )}
               </article>
             );
           })

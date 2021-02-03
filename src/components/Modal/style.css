@@ -15,8 +15,8 @@
   position: fixed;
   margin-top: 50px;
   width: 80%;
-  height: 300px;
   background: #ddd;
+  padding-bottom: 10px;
 }
 .modal-action {
   color: rgb(247, 59, 59);
@@ -28,6 +28,7 @@
   justify-content: space-around;
 }
 .modal-input {
+  margin-top: 4px;
   color: #3c3c3c;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 500;
