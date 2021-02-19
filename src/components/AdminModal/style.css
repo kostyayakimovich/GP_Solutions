@@ -1,0 +1,47 @@
+.admin-card {
+  position: relative;
+  height: 80vh;
+  overflow-y: auto;
+  align-items: unset;
+  padding-top: 12%;
+}
+.fixed-admin-control {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 12%;
+  top: 10%;
+}
+.modal-admin-control {
+  border-bottom: 4px solid rgb(140, 158, 107);
+}
+.modal-admin-news {
+  color: #222;
+  display: flex;
+  flex-direction: column;
+}
+.title-admin-news {
+  background-color: rgb(174, 197, 131);
+  padding: 3px;
+  margin: 3px;
+}
+
+.text-admin-news {
+  margin: 3px;
+}
+.approve-icon-admin {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.close-icon-admin {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.admin-card-rss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+  padding-top: 0;
+}

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import Search from '../../assets/images/search.png';
 import Close from '../../assets/images/close.png';
-import { NewsModalType, LoginModalType } from '../../types';
+import { NewsModalType, LoginModalType, AdminModalType } from '../../types';
 import { SEARCH } from '../../reducers/types';
 import Button from '../Button';
 import LoginLinks from './LoginLinks';
@@ -19,6 +19,8 @@ type Props = {
   setIsNewsModalOpen: (isOpen: boolean) => void;
   setNewsModalType: (type: NewsModalType) => void;
   openLoginModal: (type: LoginModalType) => void;
+  setIsAdminModalOpen: (isOpen: boolean) => void;
+  setAdminModalType: (type: AdminModalType) => void;
   type: LoginModalType;
 };
 
@@ -26,10 +28,20 @@ const Header: React.FC<Props> = ({
   setIsNewsModalOpen,
   setNewsModalType,
   openLoginModal,
+  setIsAdminModalOpen,
+  setAdminModalType,
 }) => {
   const [valueInput, setValueInput] = useState('');
   const [userName, setUserName] = useState('');
   const dispatch = useDispatch();
+
+  const openAdminModal = useCallback(
+    (type: AdminModalType) => {
+      setAdminModalType(type);
+      setIsAdminModalOpen(true);
+    },
+    [setIsAdminModalOpen, setAdminModalType]
+  );
 
   const handleKeyUpInput = useCallback((event) => {
     setValueInput(event.target.value);
@@ -100,7 +112,11 @@ const Header: React.FC<Props> = ({
           <Button buttonName='Add news' onClick={handleAdd} typeBtn='button' />
         )}
         {userName ? (
-          <UserPanel userName={userName} setUserName={setUserName} />
+          <UserPanel
+            userName={userName}
+            setUserName={setUserName}
+            openAdminModal={openAdminModal}
+          />
         ) : (
           <LoginLinks openLoginModal={openLoginModal} />
         )}

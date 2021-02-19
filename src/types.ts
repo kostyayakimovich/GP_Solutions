@@ -8,6 +8,11 @@ export enum LoginModalType {
   Create = 'create',
   Signin = 'signin',
 }
+export enum AdminModalType {
+  ApproveNews = 'approveNews',
+  AddTut = 'addTut',
+  addHabr = 'addHabr',
+}
 
 export type Action = {
   type: string;

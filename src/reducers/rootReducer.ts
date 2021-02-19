@@ -12,17 +12,48 @@ import {
   REMOVE_USER,
   EXIT_USER,
   FETCH_CURRENCY,
+  APPROVE_NEWS,
+  REJECT_NEWS,
+  CHANGE_ALL_NEWS,
+  ADD_RSS,
 } from './types';
 
-const defaultState = {
+type DefaultState = {
+  news: {
+    author: string;
+    body: string;
+    dateCreate: string;
+    id: string;
+    title: string;
+  }[];
+  searchString: string | null;
+  searchAuthor: string | null;
+  users: {
+    login: string;
+    email: string;
+    password: string;
+  }[];
+  currentUser: {} | null;
+  dataNBRB: {} | null;
+  unapprovedNews:
+    | {
+        author: string;
+        body: string;
+        dateCreate: string;
+        id: string;
+        title: string;
+      }[]
+    | [];
+};
+
+const defaultState: DefaultState = {
   news,
   searchString: null,
   searchAuthor: null,
-  findNews: [],
   users,
   currentUser: null,
-  currency: [],
   dataNBRB: {},
+  unapprovedNews: [],
 };
 
 function reducer(state = defaultState, action: Action) {
@@ -33,8 +64,45 @@ function reducer(state = defaultState, action: Action) {
         dataNBRB: action.payload,
       };
     }
+    case APPROVE_NEWS:
+      return {
+        ...state,
+        news: [action.payload, ...state.news],
+        unapprovedNews: [
+          ...state.unapprovedNews.filter(
+            (item) => item.id !== action.payload.id
+          ),
+        ],
+      };
+    case REJECT_NEWS:
+      return {
+        ...state,
+        unapprovedNews: [
+          ...state.unapprovedNews.filter(
+            (item) => item.id !== action.payload.id
+          ),
+        ],
+      };
+    case CHANGE_ALL_NEWS:
+      return {
+        ...state,
+        news: action.payload
+          ? [...state.unapprovedNews, ...state.news]
+          : [...state.news],
+        unapprovedNews: [],
+      };
     case ADD:
-      return { ...state, news: [action.payload, ...state.news] };
+      return {
+        ...state,
+        unapprovedNews: [action.payload, ...state.unapprovedNews],
+      };
+
+    case ADD_RSS:
+      return {
+        ...state,
+        unapprovedNews: [...action.payload, ...state.unapprovedNews],
+      };
+
     case DELETE: {
       return {
         ...state,

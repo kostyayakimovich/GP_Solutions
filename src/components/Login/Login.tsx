@@ -65,7 +65,7 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
       message === `Hello ${loginUser}` ||
       message === `Hi again ${loginUser}`
     ) {
-      setTimeout(closeLoginModal, 3000);
+      setTimeout(closeLoginModal, 2000);
       setMessageColor('rgb(18, 128, 82)');
     }
   }, [closeLoginModal, message, loginUser]);
