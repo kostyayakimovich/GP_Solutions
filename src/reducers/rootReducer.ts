@@ -16,6 +16,8 @@ import {
   REJECT_NEWS,
   CHANGE_ALL_NEWS,
   ADD_RSS,
+  CURRENCY_ERROR,
+  RSS_ERROR,
 } from './types';
 
 type DefaultState = {
@@ -28,6 +30,8 @@ type DefaultState = {
   }[];
   searchString: string | null;
   searchAuthor: string | null;
+  currencyError: string | null;
+  rssError: string | null;
   users: {
     login: string;
     email: string;
@@ -48,6 +52,8 @@ type DefaultState = {
 
 const defaultState: DefaultState = {
   news,
+  currencyError: null,
+  rssError: null,
   searchString: null,
   searchAuthor: null,
   users,
@@ -64,6 +70,21 @@ function reducer(state = defaultState, action: Action) {
         dataNBRB: action.payload,
       };
     }
+
+    case CURRENCY_ERROR: {
+      return {
+        ...state,
+        currencyError: action.payload,
+      };
+    }
+
+    case RSS_ERROR: {
+      return {
+        ...state,
+        rssError: action.payload,
+      };
+    }
+
     case APPROVE_NEWS:
       return {
         ...state,

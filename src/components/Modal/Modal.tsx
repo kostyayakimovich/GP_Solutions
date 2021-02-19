@@ -24,6 +24,7 @@ const Modal: React.FC<Props> = ({ type, closeNewsModal, currentNews }) => {
         payload: { ...payload, id: uuidv4(), dateCreate: getDate() },
       });
       closeNewsModal();
+      alert('News will be added after administrator approve');
     },
     [closeNewsModal, dispatch]
   );

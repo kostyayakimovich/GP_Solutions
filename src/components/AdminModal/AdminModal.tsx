@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Close from '../../assets/images/close.png';
 import Approve from '../../assets/images/Approve.png';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,11 +14,18 @@ import './style.css';
 type Props = { closeAdminModal: () => void; type: AdminModalType };
 type State = {
   unapprovedNews: CurrentNews[];
+  rssError: string | null;
 };
 const AdminModal: React.FC<Props> = ({ type, closeAdminModal }) => {
   const dispatch = useDispatch();
   const message = 'No unapproved news';
   const unapprovedNews = useSelector((state: State) => state.unapprovedNews);
+  const rssError = useSelector((state: State) => state.rssError);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (rssError) setErrorMessage('Sorry, no news available');
+  }, [rssError]);
 
   const handleApprove = useCallback(
     (payload: Payload) => {
@@ -57,7 +64,11 @@ const AdminModal: React.FC<Props> = ({ type, closeAdminModal }) => {
         <article className='modal'>
           <div className='modal-card admin-card admin-card-rss'>
             <div className='modal-action  '>
-              <h1>RSS news added to section Unappruved news</h1>
+              {errorMessage ? (
+                <h1>{errorMessage}</h1>
+              ) : (
+                <h1>RSS news added to section Unappruved news</h1>
+              )}
               <div className='modal-admin-control'>
                 <Button
                   buttonName='Exit'
@@ -73,24 +84,35 @@ const AdminModal: React.FC<Props> = ({ type, closeAdminModal }) => {
           <div className='modal-card admin-card'>
             <div className='modal-action  '>
               <h3>Select news to add</h3>
-              <div className='modal-admin-control fixed-admin-control'>
-                <Button
-                  buttonName='Add all'
-                  typeBtn='button'
-                  onClick={handleApproveAll}
-                />
-                <Button
-                  buttonName='Remove all'
-                  typeBtn='button'
-                  onClick={handleRejectAll}
-                />
-                <Button
-                  buttonName='Exit'
-                  typeBtn='button'
-                  onClick={closeAdminModal}
-                />
-              </div>
-              {unapprovedNews.length &&
+              {unapprovedNews.length === 0 ? (
+                <div className='modal-admin-content'>
+                  <p>{message}</p>
+                  <Button
+                    buttonName='Exit'
+                    typeBtn='button'
+                    onClick={closeAdminModal}
+                  />
+                </div>
+              ) : (
+                <div className='modal-admin-control fixed-admin-control'>
+                  <Button
+                    buttonName='Add all'
+                    typeBtn='button'
+                    onClick={handleApproveAll}
+                  />
+                  <Button
+                    buttonName='Remove all'
+                    typeBtn='button'
+                    onClick={handleRejectAll}
+                  />
+                  <Button
+                    buttonName='Exit'
+                    typeBtn='button'
+                    onClick={closeAdminModal}
+                  />
+                </div>
+              )}
+              {unapprovedNews.length > 0 &&
                 unapprovedNews.map((item) => {
                   return (
                     <div className='modal-admin-content' key={item.id}>
@@ -123,11 +145,6 @@ const AdminModal: React.FC<Props> = ({ type, closeAdminModal }) => {
                     </div>
                   );
                 })}
-              {!unapprovedNews.length && (
-                <div className='modal-admin-content'>
-                  <p>{message}</p>
-                </div>
-              )}
             </div>
           </div>
         </article>

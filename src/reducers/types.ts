@@ -13,3 +13,5 @@ export const APPROVE_NEWS = 'APPRUVE_NEWS';
 export const REJECT_NEWS = 'REJECT_NEWS';
 export const CHANGE_ALL_NEWS = 'CHANGE_ALL_NEWS';
 export const ADD_RSS = 'ADD_RSS';
+export const CURRENCY_ERROR = 'CURRENCY_ERROR';
+export const RSS_ERROR = 'RSS_ERROR';
