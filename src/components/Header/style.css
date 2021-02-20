@@ -59,6 +59,8 @@
 }
 .close-icon {
   cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 
 .login-links {
@@ -79,7 +81,10 @@
 .signin-text:hover {
   color: rgb(247, 59, 59);
 }
-
+.search-icon {
+  width: 40px;
+  height: 40px;
+}
 @media screen and (max-width: 1000px) {
   .header {
     flex-direction: column;

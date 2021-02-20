@@ -32,10 +32,14 @@
 .approve-icon-admin {
   margin-right: 20px;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 .close-icon-admin {
   margin-left: 20px;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 
 .admin-card-rss {
@@ -44,4 +48,9 @@
   justify-content: center;
   height: 30vh;
   padding-top: 0;
+}
+
+img {
+  width: 300px;
+  height: 300px;
 }
