@@ -24,6 +24,7 @@ const UserPanel: React.FC<Props> = ({
     setIsOpenDropdown(!isOpenDropdown);
   }, [setIsOpenDropdown, isOpenDropdown]);
   const handleDeleteUser = useCallback(() => {
+    localStorage.clear();
     dispatch({
       type: REMOVE_USER,
       payload: userName,
@@ -33,10 +34,10 @@ const UserPanel: React.FC<Props> = ({
   const handleExitUser = useCallback(() => {
     dispatch({
       type: EXIT_USER,
-      payload: userName,
+      payload: null,
     });
     setUserName('');
-  }, [dispatch, userName, setUserName]);
+  }, [dispatch, setUserName]);
 
   return (
     <div className='user-panel'>

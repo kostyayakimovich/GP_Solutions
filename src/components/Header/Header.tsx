@@ -32,7 +32,9 @@ const Header: React.FC<Props> = ({
   setAdminModalType,
 }) => {
   const [valueInput, setValueInput] = useState('');
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState(
+    localStorage.getItem('login') || '' || null
+  );
   const dispatch = useDispatch();
 
   const openAdminModal = useCallback(
@@ -56,7 +58,8 @@ const Header: React.FC<Props> = ({
   const loginUser = useSelector((state: State) => state.currentUser);
 
   useEffect(() => {
-    setUserName(loginUser);
+    if (!localStorage.getItem('login')) setUserName(loginUser);
+    else setUserName(localStorage.getItem('login'));
   }, [loginUser]);
 
   const handleKeyPress = useCallback(

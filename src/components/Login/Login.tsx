@@ -41,6 +41,11 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
               payload: { ...data },
             }) && setMessage(`Hello ${data.login}`)
           : setMessage('User with the same login or email already exists');
+        if (!checkExistUser) {
+          localStorage.setItem('login', data.login);
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('password', data.password);
+        }
       }
       if (type === 'signin') {
         const checkExistUser = checkUserSignin(
@@ -49,12 +54,31 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
           data.password
         );
 
-        checkExistUser
-          ? dispatch({
-              type: SIGNIN,
-              payload: { ...data },
-            }) && setMessage(`Hi again ${data.login}`)
-          : setMessage('User is not found');
+        if (
+          localStorage.getItem('login') === data.login &&
+          localStorage.getItem('password') === data.password
+        ) {
+          dispatch({
+            type: SIGNIN,
+            payload: { ...data },
+          });
+          setMessage(`Hi again ${data.login}`);
+        } else {
+          localStorage.clear();
+          checkExistUser
+            ? dispatch({
+                type: SIGNIN,
+                payload: { ...data },
+              }) && setMessage(`Hi again ${data.login}`)
+            : setMessage('User is not found');
+
+          if (checkExistUser) {
+            localStorage.clear();
+            localStorage.setItem('login', data.login);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('password', data.password);
+          }
+        }
       }
     },
     [type, dispatch, userList]

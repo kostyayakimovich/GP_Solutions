@@ -175,14 +175,14 @@ function reducer(state = defaultState, action: Action) {
     case REMOVE_USER: {
       return {
         ...state,
-        users: [...state.users.filter((item) => item.login !== action.payload)],
         currentUser: null,
+        users: [...state.users.filter((item) => item.login !== action.payload)],
       };
     }
     case EXIT_USER: {
       return {
         ...state,
-        currentUser: null,
+        currentUser: action.payload,
       };
     }
     default:

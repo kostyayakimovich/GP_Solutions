@@ -15,6 +15,6 @@ export const checkUserSignin = (
 ) => {
   return arrUsers.find(
     (item: { login: string; password: string }) =>
-      item.login === login || item.password === password
+      item.login === login && item.password === password
   );
 };
