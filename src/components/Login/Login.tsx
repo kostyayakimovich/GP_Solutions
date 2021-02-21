@@ -61,13 +61,6 @@ const Login: React.FC<Props> = ({ closeLoginModal, type }) => {
               payload: { ...data },
             }) && setMessage(`Hi again ${data.login}`)
           : setMessage('User is not found');
-
-        // if (checkExistUser) {
-        //   localStorage.clear();
-        //   localStorage.setItem('login', data.login);
-        //   localStorage.setItem('email', data.email);
-        //   localStorage.setItem('password', data.password);
-        // }
       }
     },
     [type, dispatch, userList]
