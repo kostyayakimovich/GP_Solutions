@@ -1,4 +1,4 @@
-## link: https://gp-solutions-news-part3.netlify.app/
+## link: https://gp-solutions-news-part4.netlify.app/
 
 ### login for admin: Admin
 
